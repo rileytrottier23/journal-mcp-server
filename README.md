@@ -158,6 +158,12 @@ The `InMemoryJournalStore` included here is suitable for local development and t
 
 ---
 
+## Related projects
+
+- [Riley-Claude-Skills](https://github.com/rileytrottier23/Riley-Claude-Skills) — Riley's versioned Claude Skills portfolio: reusable instruction sets for PM workflows, personal finance, and more.
+
+---
+
 ## License
 
 MIT
