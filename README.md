@@ -62,6 +62,13 @@ OAuth endpoints (same server):
 
 All tools are defined with Zod schemas so the MCP SDK generates accurate JSON Schema for the agent's tool-use call.
 
+Each tool also declares all four MCP behaviour hints, so a host can tell reads from writes before calling:
+
+| Tool | `readOnlyHint` | `destructiveHint` | `idempotentHint` | `openWorldHint` |
+|---|---|---|---|---|
+| `create_entry` | false | false | false | false |
+| The four read tools | true | false | true | false |
+
 ---
 
 ## Auth model
@@ -133,6 +140,14 @@ curl -X POST http://localhost:3000/mcp \
 # OAuth metadata
 curl http://localhost:3000/.well-known/oauth-authorization-server
 ```
+
+## Tests
+
+```bash
+npm test
+```
+
+The tests call each tool through the MCP SDK's in-memory transport, backed by `InMemoryJournalStore`. No server, port, or secrets are needed.
 
 ---
 
