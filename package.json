@@ -1,15 +1,16 @@
 {
   "name": "journal-mcp-server",
   "version": "1.0.0",
-  "description": "Reference MCP server for a personal journaling app — Streamable HTTP transport with OAuth 2.0",
+  "description": "Reference MCP server for a personal journaling app \u2014 Streamable HTTP transport with OAuth 2.0",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@modelcontextprotocol/sdk": "^1.32.1",
     "express": "^4.21.2",
     "zod": "^3.24.2"
   },

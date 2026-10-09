@@ -3,6 +3,10 @@
  *
  * Transport: Streamable HTTP (stateless, one session per request).
  * Each request creates a fresh McpServer bound to a JournalStore and a userId.
+ *
+ * Every tool declares an input schema and all four behaviour hints so MCP hosts
+ * can tell read-only calls from writes. Nothing here reaches outside the
+ * JournalStore, so openWorldHint is false throughout.
  */
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -15,31 +19,41 @@ function todayDate(): string {
   return new Date().toISOString().split("T")[0];
 }
 
-function createMcpServer(store: JournalStore, userId: string): McpServer {
+export function createMcpServer(store: JournalStore, userId: string): McpServer {
   const server = new McpServer({ name: "journal-mcp-server", version: "1.0.0" });
 
   // ── Tool: create_entry ────────────────────────────────────────────────────
-  server.tool(
+  server.registerTool(
     "create_entry",
-    "Create a new journal entry. One entry per calendar day is allowed. " +
-    "If an entry already exists for that date, this will fail — ask the user to clarify before retrying.",
     {
-      content: z
-        .string()
-        .min(1)
-        .max(10000)
-        .describe("The journal entry text"),
-      happiness_score: z
-        .number()
-        .int()
-        .min(1)
-        .max(10)
-        .describe("Happiness score from 1 (very low) to 10 (excellent)"),
-      date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/)
-        .optional()
-        .describe("Date in YYYY-MM-DD format, defaults to today if omitted"),
+      title: "Create journal entry",
+      description:
+        "Create a new journal entry. One entry per calendar day is allowed. " +
+        "If an entry already exists for that date, this will fail — ask the user to clarify before retrying.",
+      inputSchema: {
+        content: z
+          .string()
+          .min(1)
+          .max(10000)
+          .describe("The journal entry text"),
+        happiness_score: z
+          .number()
+          .int()
+          .min(1)
+          .max(10)
+          .describe("Happiness score from 1 (very low) to 10 (excellent)"),
+        date: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/)
+          .optional()
+          .describe("Date in YYYY-MM-DD format, defaults to today if omitted"),
+      },
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: false,
+        idempotentHint: false,
+        openWorldHint: false,
+      },
     },
     async ({ content, happiness_score, date }) => {
       const entryDate = date ?? todayDate();
@@ -73,17 +87,27 @@ function createMcpServer(store: JournalStore, userId: string): McpServer {
   );
 
   // ── Tool: list_recent_entries ─────────────────────────────────────────────
-  server.tool(
+  server.registerTool(
     "list_recent_entries",
-    "List the most recent journal entries, newest first.",
     {
-      count: z
-        .number()
-        .int()
-        .min(1)
-        .max(50)
-        .default(5)
-        .describe("Number of entries to return (default 5, max 50)"),
+      title: "List recent journal entries",
+      description:
+        "List the most recent journal entries, newest first.",
+      inputSchema: {
+        count: z
+          .number()
+          .int()
+          .min(1)
+          .max(50)
+          .default(5)
+          .describe("Number of entries to return (default 5, max 50)"),
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
     },
     async ({ count }) => {
       const entries = await store.listRecent(userId, count);
@@ -100,14 +124,24 @@ function createMcpServer(store: JournalStore, userId: string): McpServer {
   );
 
   // ── Tool: get_entry ───────────────────────────────────────────────────────
-  server.tool(
+  server.registerTool(
     "get_entry",
-    "Fetch a single journal entry by date.",
     {
-      date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/)
-        .describe("Date in YYYY-MM-DD format, e.g. 2026-08-13"),
+      title: "Get journal entry",
+      description:
+        "Fetch a single journal entry by date.",
+      inputSchema: {
+        date: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/)
+          .describe("Date in YYYY-MM-DD format, e.g. 2026-08-13"),
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
     },
     async ({ date }) => {
       const entry = await store.getEntry(userId, date);
@@ -131,22 +165,32 @@ function createMcpServer(store: JournalStore, userId: string): McpServer {
   );
 
   // ── Tool: search_entries ──────────────────────────────────────────────────
-  server.tool(
+  server.registerTool(
     "search_entries",
-    "Search journal entries by keyword (case-insensitive full-text search on entry content). " +
-    "Returns matching entries newest first.",
     {
-      query: z
-        .string()
-        .min(1)
-        .describe("Keyword or phrase to search for in entry content"),
-      limit: z
-        .number()
-        .int()
-        .min(1)
-        .max(50)
-        .default(10)
-        .describe("Maximum number of results to return (default 10)"),
+      title: "Search journal entries",
+      description:
+        "Search journal entries by keyword (case-insensitive full-text search on entry content). " +
+        "Returns matching entries newest first.",
+      inputSchema: {
+        query: z
+          .string()
+          .min(1)
+          .describe("Keyword or phrase to search for in entry content"),
+        limit: z
+          .number()
+          .int()
+          .min(1)
+          .max(50)
+          .default(10)
+          .describe("Maximum number of results to return (default 10)"),
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
     },
     async ({ query, limit }) => {
       const results = await store.searchEntries(userId, query, limit);
@@ -172,19 +216,29 @@ function createMcpServer(store: JournalStore, userId: string): McpServer {
   );
 
   // ── Tool: get_mood_summary ────────────────────────────────────────────────
-  server.tool(
+  server.registerTool(
     "get_mood_summary",
-    "Summarise happiness scores across a date range. Returns average, min, max, entry count, " +
-    "and a breakdown by score tier. Useful for spotting mood trends.",
     {
-      start_date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/)
-        .describe("Start date (YYYY-MM-DD, inclusive)"),
-      end_date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/)
-        .describe("End date (YYYY-MM-DD, inclusive)"),
+      title: "Get mood summary",
+      description:
+        "Summarise happiness scores across a date range. Returns average, min, max, entry count, " +
+        "and a breakdown by score tier. Useful for spotting mood trends.",
+      inputSchema: {
+        start_date: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/)
+          .describe("Start date (YYYY-MM-DD, inclusive)"),
+        end_date: z
+          .string()
+          .regex(/^\d{4}-\d{2}-\d{2}$/)
+          .describe("End date (YYYY-MM-DD, inclusive)"),
+      },
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false,
+      },
     },
     async ({ start_date, end_date }) => {
       const entries = await store.getEntriesInRange(userId, start_date, end_date);
