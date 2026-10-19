@@ -1,21 +1,21 @@
 # journal-mcp-server
 
-A reference implementation of a remote MCP (Model Context Protocol) server extracted from a personal journaling app. It exposes journal read/write operations as typed tools that any MCP-compatible agent (Claude, GPT, etc.) can call over HTTP.
+A remote MCP server I pulled out of my [ReflectAI](https://github.com/rileytrottier23/ReflectAI) journaling app. It lets Claude, or any MCP client, read and write journal entries over HTTP, with OAuth 2.0 sign-in so it works in Claude's connector settings.
 
-Built to demonstrate **agent tool design**, **permission scoping**, and **OAuth 2.0 integration** in a real-world single-user scenario.
+I built it to work through agent tool design, permission scoping and OAuth end to end.
 
 ---
 
 ## What this is
 
-The journaling app this was extracted from stores daily entries with a happiness score (1–10). This MCP layer lets an AI assistant — connected via claude.ai or Claude Desktop — read, write, and analyse those entries on behalf of the owner.
+ReflectAI stores daily entries with a happiness score (1–10). This MCP layer lets an AI assistant, connected via claude.ai or Claude Desktop, read, write, and analyse those entries on behalf of the owner.
 
-The interesting design challenges this solves:
+### Design choices
 
-- **One owner, one agent.** No multi-tenancy required, but the auth model still uses proper OAuth 2.0 so it works with Claude's connector UI without any custom SDK.
-- **Bearer token pinned to OAuth secret.** The issued `access_token` is the same value as the bearer token the `/mcp` route checks, so the OAuth consent flow and the API auth layer are a single secret — no separate token store.
+- **One owner, one agent.** No multi-tenancy, but the auth model still uses proper OAuth 2.0 so it works with Claude's connector UI without a custom SDK.
+- **Bearer token pinned to the OAuth secret.** The issued `access_token` is the same value as the bearer token the `/mcp` route checks, so the OAuth consent flow and the API auth layer share a single secret and there's no separate token store.
 - **Stateless transport.** Each HTTP request creates a fresh MCP session. No WebSocket, no persistent server-side session.
-- **Storage abstracted behind an interface.** The `JournalStore` interface lets you swap the backing store (in-memory → SQLite → Postgres) without touching the tool definitions.
+- **Storage behind an interface.** The `JournalStore` interface lets you swap the backing store (in-memory → SQLite → Postgres) without touching the tool definitions.
 
 ---
 
@@ -58,7 +58,7 @@ OAuth endpoints (same server):
 | `list_recent_entries` | Return the N most recent entries, newest first. |
 | `get_entry` | Fetch a single entry by date (YYYY-MM-DD). |
 | `search_entries` | Case-insensitive keyword search across all entry content, newest first. |
-| `get_mood_summary` | Aggregate happiness scores across a date range — average, min, max, and a count by score tier (low/mid/high). |
+| `get_mood_summary` | Aggregate happiness scores across a date range: average, min, max, and a count by score tier (low/mid/high). |
 
 All tools are defined with Zod schemas so the MCP SDK generates accurate JSON Schema for the agent's tool-use call.
 
@@ -81,14 +81,14 @@ Every `POST /mcp` request must include:
 Authorization: Bearer <MCP_TOKEN>
 ```
 
-On a 401 the server returns a `WWW-Authenticate` header pointing to the OAuth metadata URL, which allows MCP clients that support dynamic discovery to kick off the OAuth flow automatically.
+On a 401 the server returns a `WWW-Authenticate` header pointing to the OAuth metadata URL, which allows MCP clients that support dynamic discovery to start the OAuth flow automatically.
 
 ### OAuth 2.0 (for claude.ai connector UI)
 
 Claude's connector UI only accepts OAuth credentials, not raw bearer tokens. This server implements a minimal Authorization Code flow (RFC 6749) with PKCE (RFC 7636) and server metadata (RFC 8414):
 
 1. Claude fetches `/.well-known/oauth-authorization-server` to discover endpoints.
-2. Claude redirects the user to `/oauth/authorize` — a consent page served by this server.
+2. Claude redirects the user to `/oauth/authorize`, a consent page served by this server.
 3. The user clicks **Allow**. The server issues a one-time auth code (5-minute TTL).
 4. Claude exchanges the code at `/oauth/token`. The server validates PKCE and returns `MCP_TOKEN` as the `access_token`.
 5. Claude uses the token as a bearer token on all subsequent `/mcp` calls.
@@ -105,7 +105,7 @@ Claude's connector UI only accepts OAuth credentials, not raw bearer tokens. Thi
 
 ## Transport
 
-**Streamable HTTP** (MCP spec §3.2) — the server creates a fresh `StreamableHTTPServerTransport` for every request. This is the simplest MCP transport: no WebSocket handshake, no persistent connection, works through any HTTP reverse proxy.
+**Streamable HTTP** (MCP spec §3.2). The server creates a fresh `StreamableHTTPServerTransport` for every request. This is the simplest MCP transport: no WebSocket handshake, no persistent connection, and it works through any HTTP reverse proxy.
 
 ---
 
@@ -158,7 +158,7 @@ The `JournalStore` interface in `src/journalStore.ts` is the only contract the M
 1. Implement `JournalStore` against your ORM or query builder of choice.
 2. Pass your implementation to `handleMcpRequest(store, req, res)` in `src/server.ts`.
 
-The `InMemoryJournalStore` included here is suitable for local development and testing — data is lost on server restart.
+The `InMemoryJournalStore` included here is suitable for local development and testing; data is lost on server restart.
 
 ---
 
@@ -167,7 +167,7 @@ The `InMemoryJournalStore` included here is suitable for local development and t
 | Variable | Required | Description |
 |---|---|---|
 | `MCP_TOKEN` | ✅ | Bearer token for `/mcp`. Also issued as the OAuth `access_token`. |
-| `MCP_USER_EMAIL` | ✅ | Owner identifier — used as the `userId` passed to `JournalStore`. |
+| `MCP_USER_EMAIL` | ✅ | Owner identifier, used as the `userId` passed to `JournalStore`. |
 | `OAUTH_CLIENT_ID` | ✅ | OAuth `client_id` (e.g. `claude`). |
 | `PORT` | optional | HTTP port, defaults to `3000`. |
 
@@ -175,7 +175,9 @@ The `InMemoryJournalStore` included here is suitable for local development and t
 
 ## Related projects
 
-- [Riley-Claude-Skills](https://github.com/rileytrottier23/Riley-Claude-Skills) — Riley's versioned Claude Skills portfolio: reusable instruction sets for PM workflows, personal finance, and more.
+- [ReflectAI](https://github.com/rileytrottier23/ReflectAI): the journaling app this server came from. Live at [reflectai.net](https://reflectai.net).
+- [agent-eval-harness](https://github.com/rileytrottier23/agent-eval-harness): can run eval suites against a live MCP server like this one.
+- [Riley-Claude-Skills](https://github.com/rileytrottier23/Riley-Claude-Skills): my Claude skills library.
 
 ---
 
