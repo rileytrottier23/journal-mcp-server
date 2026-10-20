@@ -176,7 +176,6 @@ The `InMemoryJournalStore` included here is suitable for local development and t
 ## Related projects
 
 - [ReflectAI](https://github.com/rileytrottier23/ReflectAI): the journaling app this server came from. Live at [reflectai.net](https://reflectai.net).
-- [agent-eval-harness](https://github.com/rileytrottier23/agent-eval-harness): can run eval suites against a live MCP server like this one.
 - [Riley-Claude-Skills](https://github.com/rileytrottier23/Riley-Claude-Skills): my Claude skills library.
 
 ---
