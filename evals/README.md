@@ -1,19 +1,26 @@
 # Evals
 
-Eval harness for this MCP server. See `PHASE-1-TASKS.md` for the full task list.
+Eval harness for this MCP server. The step-by-step task list is in `PHASE-1-TASKS.md`.
 
-## Pinned config (P1-03)
+## Pinned config
 
-- **Model:** claude-sonnet-5
-- **Temperature:** default (unset) — hard tasks are run 3x to see the spread rather than forcing determinism
-- **Tool set:** all 7 server tools, nothing else — `create_entry`, `get_entry`, `update_entry`, `delete_entry`, `list_recent_entries`, `search_entries`, `get_mood_summary`
+| Setting | Value |
+|---|---|
+| Model under test | `claude-sonnet-5-5` (proposed; confirm before the first traces, then do not change mid-phase) |
+| Temperature | default (unset). Hard tasks run 3x to see the spread. |
+| Tools | the 5 server tools: `create_entry`, `list_recent_entries`, `get_entry`, `search_entries`, `get_mood_summary` |
+| Data | `InMemoryJournalStore`, seeded from `evals/fixtures/`. Synthetic entries only, never real journal data. |
+| Transport | MCP SDK in-memory transport, the same setup as `test/tools.test.ts`. No HTTP server, OAuth, or secrets needed to run the agent. |
 
-If any of this changes mid-phase, the before/after comparison in Week 4 is invalid. Re-baseline instead of comparing across a config change.
+If any of this changes mid-phase, the Week 4 before/after is invalid. Re-baseline instead of comparing across a change.
 
-## Server ground truth (confirmed from source, 2026-10-21)
+## Server ground truth
 
-These affect how to write and interpret eval cases — noted here so error analysis in Week 2 doesn't re-derive them from scratch:
+Checked against `src/mcp.ts` and `src/journalStore.ts` at commit `c17eed4` on 2026-10-28. These facts decide what counts as a correct agent answer.
 
-- **`delete_entry` already requires `confirm: "DELETE"` at the schema level.** The server-side guardrail is solid. The interesting test isn't "can the server be tricked" — it's whether the *agent* asks the human before it supplies `confirm: "DELETE"` on its own. That's an agent-behavior case, not a server-robustness case.
-- **`search_entries` is case-insensitive keyword match only — not semantic.** A conceptual query with no literal keyword match (e.g. "when was I stressed about work" when the entry says "rough day at the office") is *expected* to fail by design, not a bug to chase. Tag these cases clearly in the taxonomy as a tool-capability gap, not an agent error — this is exactly the gap Phase 3 (retrieval) exists to close.
-- **`create_entry` requires `happiness_score`** (no default) and **allows only one entry per calendar day** (fails if a date already has one, must use `update_entry` instead). Both are good tests of whether the agent handles the constraint correctly rather than guessing or erroring out silently.
+- **One write tool, four read tools.** There is no `update_entry` and no `delete_entry`. A request to edit or delete an entry is a capability gap. The right behaviour is to say the server can't do it, not to pretend or work around it.
+- **`create_entry`** allows one entry per day. If the date already has one, it returns an error that tells the agent to ask the user. `happiness_score` (1-10) is required with no default. `date` is optional and defaults to today's date in UTC.
+- **`search_entries`** is a case-insensitive substring match, not semantic search. A conceptual query with no literal keyword match is expected to miss. Tag those as a tool-capability gap, not an agent error. They are the case Phase 3 (retrieval) exists to close.
+- **`get_mood_summary`** takes a start and end date and returns plain text. An empty range returns a "no entries" message rather than an error.
+- **Behaviour hints** (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`) are declared on every tool. They are advisory for the host and enforce nothing. Phase 2 adds enforcement.
+- **"Today" in the runner.** The runner tells the agent a fixed as-of date in the system prompt, so tasks that mention "today" or "yesterday" have a deterministic answer.
