@@ -1,0 +1,505 @@
+{
+  "as_of": "2026-09-30",
+  "entries": [
+    {
+      "date": "2026-04-01",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-04-02",
+      "content": "Bad sleep and a long commute. Early night. Coffee on the balcony first.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-04-03",
+      "content": "First day at the new desk. Coffee with the team lead, who walked me through the roadmap.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-04-05",
+      "content": "Laundry, groceries, and a pile of errands.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-04-08",
+      "content": "Board game night at Priya's place. I lost, badly.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-04-10",
+      "content": "Fixed the wobbly shelf and sorted the closet.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-04-13",
+      "content": "Lots of small annoyances at work, nothing big. Coffee on the balcony first.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-04-15",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-04-17",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-04-18",
+      "content": "Practiced guitar for an hour. The new chord change is finally clicking.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-04-23",
+      "content": "Dog got into the bin again. Funny, annoying, typical. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-04-24",
+      "content": "Board game night at Priya's place. I lost, badly.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-04-28",
+      "content": "Baked bread for the first time in months.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-05-02",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-05-03",
+      "content": "Library trip. Came home with way too many books. Coffee on the balcony first.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-05-04",
+      "content": "Board game night at Priya's place. I lost, badly.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-05-05",
+      "content": "First proper autumn chill. Wore a sweater for the first time.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-05-06",
+      "content": "Morning run along the river, legs felt light.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-05-08",
+      "content": "Dog got into the bin again. Funny, annoying, typical. Coffee on the balcony first.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-05-11",
+      "content": "Baked bread for the first time in months.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-05-12",
+      "content": "Dentist cleaning this morning. Two small cavities, nothing scary.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-05-13",
+      "content": "Called the dentist's office to book the follow-up for the cavities.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-05-17",
+      "content": "Spent the day on chores and paperwork.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-05-27",
+      "content": "Deadline crunch. Overwhelmed and on edge all day, skipped lunch.",
+      "happiness_score": 3
+    },
+    {
+      "date": "2026-05-28",
+      "content": "Walked around the market with Dana and picked up flowers.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-06-02",
+      "content": "Lease renewal letter arrived. The rent goes up 6 percent and I need to decide by the end of the month.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-06-03",
+      "content": "Still thinking about the lease. Talked it over with Dana, we might stay one more year.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-06-05",
+      "content": "Practiced guitar for an hour. The new chord change is finally clicking. Coffee on the balcony first.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-06-06",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-06-08",
+      "content": "Long walk with the dog after the rain stopped.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-06-11",
+      "content": "Bad sleep and a long commute. Early night.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-06-12",
+      "content": "Worked on the song I started last month. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-06-14",
+      "content": "Signed up for the autumn marathon today. Eighteen weeks of training starts Monday.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-06-15",
+      "content": "Worked on the song I started last month.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-06-18",
+      "content": "Baked bread for the first time in months.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-06-19",
+      "content": "Bad sleep and a long commute. Early night.",
+      "happiness_score": 3
+    },
+    {
+      "date": "2026-06-20",
+      "content": "Windy evening on the roof, watched the clouds roll past. Coffee on the balcony first.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-06-21",
+      "content": "Birthday dinner at the little Italian place. Everyone showed up, and Dana's cake was ridiculous.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-06-24",
+      "content": "Made fresh pasta from scratch. Messy kitchen, great dinner.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-06-25",
+      "content": "Quarter-end pressure again. Nervous about the review on Friday.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-06-26",
+      "content": "Library trip. Came home with way too many books.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-06-28",
+      "content": "Rain all day. Stayed in and tidied up.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-06-29",
+      "content": "Read most of the afternoon. The book is slow but good. Coffee on the balcony first.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-06-30",
+      "content": "Easy long run with the group, then pancakes.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-07-02",
+      "content": "Read most of the afternoon. The book is slow but good.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-07-03",
+      "content": "Made fresh pasta from scratch. Messy kitchen, great dinner.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-07-04",
+      "content": "Quiet holiday. Barbecue on the roof, fireworks in the distance.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-07-05",
+      "content": "Packed for the trip tomorrow. Passport, charger, the good camera.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-07-20",
+      "content": "Back home. Jet lag is real but the trip was worth it.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-07-21",
+      "content": "Tried a new curry recipe. Needed more salt. Coffee on the balcony first.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-07-22",
+      "content": "First proper autumn chill. Wore a sweater for the first time.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-07-23",
+      "content": "Finished a chapter and fell asleep on the couch.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-07-24",
+      "content": "Cooked a big pot of chili and froze half of it.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-07-28",
+      "content": "Jam session with the neighbours, mostly off key and a lot of fun. Coffee on the balcony first.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-07-31",
+      "content": "Made fresh pasta from scratch. Messy kitchen, great dinner.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-02",
+      "content": "Easy long run with the group, then pancakes.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-08-04",
+      "content": "Finished a chapter and fell asleep on the couch.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-05",
+      "content": "Rough day at the office. The demo broke twice and I felt completely out of my depth.",
+      "happiness_score": 3
+    },
+    {
+      "date": "2026-08-07",
+      "content": "Planning meeting ran long but we landed on a clear scope. Coffee on the balcony first.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-08-08",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-11",
+      "content": "Tried a new route up the hill. Slow, but I finished it.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-08-12",
+      "content": "Long walk with the dog after the rain stopped.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-08-13",
+      "content": "Lots of small annoyances at work, nothing big. Coffee on the balcony first.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-08-14",
+      "content": "Finally recieved the parcel I had been waiting on for weeks. New running shoes!",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-08-17",
+      "content": "Code review with the new hire. She asks good questions.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-19",
+      "content": "Windy evening on the roof, watched the clouds roll past.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-22",
+      "content": "Century ride with the cycling group, 100 km in the sun. Best day of the summer.",
+      "happiness_score": 10
+    },
+    {
+      "date": "2026-08-23",
+      "content": "Slow, grey day. Not much energy for anything.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-08-24",
+      "content": "Spent the day on chores and paperwork. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-08-25",
+      "content": "Quiet office day. Got a lot done before lunch.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-26",
+      "content": "Long walk with the dog after the rain stopped.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-08-27",
+      "content": "Dinner with old friends. We stayed far too late talking.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-08-28",
+      "content": "Steady day at work. Cleared my inbox and fixed two small bugs. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-08-29",
+      "content": "Tried a new route up the hill. Slow, but I finished it.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-08-31",
+      "content": "Bad sleep and a long commute. Early night.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-09-01",
+      "content": "Long walk with the dog after the rain stopped.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-02",
+      "content": "Read most of the afternoon. The book is slow but good. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-09-04",
+      "content": "Windy evening on the roof, watched the clouds roll past.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-06",
+      "content": "Bad sleep and a long commute. Early night.",
+      "happiness_score": 3
+    },
+    {
+      "date": "2026-09-08",
+      "content": "Tried a new route up the hill. Slow, but I finished it.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-09",
+      "content": "Tried a new curry recipe. Needed more salt. Coffee on the balcony first.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-10",
+      "content": "Slow, grey day. Not much energy for anything.",
+      "happiness_score": 3
+    },
+    {
+      "date": "2026-09-11",
+      "content": "Baked bread for the first time in months.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-12",
+      "content": "Worked on the song I started last month.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-13",
+      "content": "Finished a chapter and fell asleep on the couch. Coffee on the balcony first.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-14",
+      "content": "Finished a chapter and fell asleep on the couch.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-15",
+      "content": "Dog got into the bin again. Funny, annoying, typical.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-09-16",
+      "content": "Another week of back-to-back reviews. Feeling stretched thin and short with everyone.",
+      "happiness_score": 4
+    },
+    {
+      "date": "2026-09-18",
+      "content": "First proper autumn chill. Wore a sweater for the first time.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-19",
+      "content": "Quiet office day. Got a lot done before lunch. Coffee on the balcony first.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-09-20",
+      "content": "Read most of the afternoon. The book is slow but good.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-21",
+      "content": "Code review with the new hire. She asks good questions.",
+      "happiness_score": 7
+    },
+    {
+      "date": "2026-09-22",
+      "content": "Cooked a big pot of chili and froze half of it.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-23",
+      "content": "Code review with the new hire. She asks good questions. Coffee on the balcony first.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-09-24",
+      "content": "Tried a new route up the hill. Slow, but I finished it.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-25",
+      "content": "Slow, grey day. Not much energy for anything.",
+      "happiness_score": 5
+    },
+    {
+      "date": "2026-09-26",
+      "content": "Baked bread for the first time in months.",
+      "happiness_score": 8
+    },
+    {
+      "date": "2026-09-27",
+      "content": "Tried a new route up the hill. Slow, but I finished it. Coffee on the balcony first.",
+      "happiness_score": 9
+    },
+    {
+      "date": "2026-09-28",
+      "content": "Monday reset. Cleaned the apartment, planned the week, early night.",
+      "happiness_score": 6
+    },
+    {
+      "date": "2026-09-29",
+      "content": "Quick one: walked the dog before dinner and read for an hour.",
+      "happiness_score": 7
+    }
+  ]
+}
