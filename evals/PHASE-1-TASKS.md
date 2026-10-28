@@ -2,7 +2,7 @@
 
 **Target:** this repo (the 5-tool journal MCP server, in-memory store).
 **Goal:** a working eval harness with real results: a failure taxonomy built from actual traces, a validated judge, CI, and one measured before/after fix.
-**Budget:** about 6-8 hrs/week, about 30 hrs total.
+**Budget:** about 6-8 hrs/week, about 30 hrs total. No fixed dates; work as time allows.
 **Done when:** someone else could clone the repo and run the evals, and the repo shows the taxonomy, the eval set, and a before/after table.
 
 Read `README.md` in this folder first. It has the pinned config and what the server really does.
@@ -11,11 +11,11 @@ Task IDs (`P1-01`) are stable. Use them to hand off between chat, Claude Code, a
 
 ---
 
-## Day 1 — Setup (done)
+## Setup (done)
 
 - [x] **P1-01** Create branch `evals`.
 - [x] **P1-02** Create the directory skeleton.
-- [x] **P1-03** Pin model, temperature, tool set (see `README.md`; model to be confirmed).
+- [x] **P1-03** Pin model, temperature, tool set (see `README.md`; model is `claude-sonnet-5-5`).
 - [x] **P1-04** Save this task list to the repo.
 
 ---
@@ -98,7 +98,7 @@ Task IDs (`P1-01`) are stable. Use them to hand off between chat, Claude Code, a
 - [ ] **P1-40** Post it and link the repo.
 - [ ] **P1-41** Check your P1-18 prediction against what happened. One paragraph in the report.
 - [ ] **P1-42** Note what Phase 2 can reuse: the runner, trace format, and judge scaffolding.
-- [ ] **P1-43** Checkpoint: if Phase 1 is more than 10 days late, shrink Phase 3 before squeezing Phase 2.
+- [ ] **P1-43** Checkpoint: if Phase 1 is well over budget, shrink Phase 3 before squeezing Phase 2.
 
 ---
 
@@ -108,3 +108,4 @@ Task IDs (`P1-01`) are stable. Use them to hand off between chat, Claude Code, a
 - Ship the broken parts. The failures are the credibility.
 - One pinned config for the whole phase.
 - Time-box Week 1. Thirty tasks is enough.
+- Keep the build log current: add a short entry after each task group and after anything surprising or wrong.
