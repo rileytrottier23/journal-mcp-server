@@ -38,10 +38,10 @@ Task IDs (`P1-01`) are stable. Use them to hand off between chat, Claude Code, a
 
 ### Run and capture
 
-- [ ] **P1-08** Write `evals/run.ts`. It connects an MCP client to the server over the in-memory transport (copy the setup in `test/tools.test.ts`), loads the seed, runs the agent loop on one task, and writes a trace: prompt, every tool call with arguments, every result, the final reply, timestamps, token counts.
-- [ ] **P1-09** Run all tasks. Save every trace to `evals/traces/`. Check cost after the first 5 runs.
-- [ ] **P1-10** Run the 8-10 hardest tasks 3 times each, to see the spread.
-- [ ] **P1-11** Check that traces are complete and readable. If you can't tell what happened from a trace, fix the logging now.
+- [x] **P1-08** Write `evals/run.ts`. It connects an MCP client to the server over the in-memory transport (copy the setup in `test/tools.test.ts`), loads the seed, runs the agent loop on one task, and writes a trace: prompt, every tool call with arguments, every result, the final reply, timestamps, token counts. *Done.*
+- [x] **P1-09** Run all tasks. Save every trace to `evals/traces/`. Check cost after the first 5 runs. *Done: the first 5 runs cost about $0.07 (estimated).*
+- [x] **P1-10** Run the 8-10 hardest tasks 3 times each, to see the spread. *Done: 10 hard tasks x 3 runs.*
+- [x] **P1-11** Check that traces are complete and readable. If you can't tell what happened from a trace, fix the logging now. *Done: all 50 traces finished with no errors. Spot-checked the readable copies.*
 
 **Week 1 done when:** about 50 trace files exist and you haven't read them systematically yet.
 

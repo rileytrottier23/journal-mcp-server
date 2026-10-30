@@ -1,7 +1,7 @@
 {
   "name": "journal-mcp-server",
   "version": "1.0.0",
-  "description": "Reference MCP server for a personal journaling app — Streamable HTTP transport with OAuth 2.0",
+  "description": "Reference MCP server for a personal journaling app \u2014 Streamable HTTP transport with OAuth 2.0",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",

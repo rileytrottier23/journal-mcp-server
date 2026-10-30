@@ -10,6 +10,9 @@ Eval harness for this MCP server. The step-by-step task list is in `PHASE-1-TASK
 | Temperature | default (unset). Hard tasks run 3x to see the spread. |
 | Tools | the 5 server tools: `create_entry`, `list_recent_entries`, `get_entry`, `search_entries`, `get_mood_summary` |
 | Data | `InMemoryJournalStore`, seeded from `evals/fixtures/`. Synthetic entries only, never real journal data. |
+| System prompt | "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30." (the date comes from the seed's `as_of`) |
+| Thinking | Adaptive, with summaries shown. Summaries are recorded in traces. |
+| Limits | 8000 max tokens per model call, 15 model calls per run |
 | Transport | MCP SDK in-memory transport, the same setup as `test/tools.test.ts`. No HTTP server, OAuth, or secrets needed to run the agent. |
 
 If any of this changes mid-phase, the Week 4 before/after is invalid. Re-baseline instead of comparing across a change.
@@ -24,3 +27,15 @@ Checked against `src/mcp.ts` and `src/journalStore.ts` at commit `c17eed4`. Thes
 - **`get_mood_summary`** takes a start and end date and returns plain text. An empty range returns a "no entries" message rather than an error.
 - **Behaviour hints** (`readOnlyHint`, `destructiveHint`, `idempotentHint`, `openWorldHint`) are declared on every tool. They are advisory for the host and enforce nothing. Phase 2 adds enforcement.
 - **"Today" in the runner.** The runner tells the agent a fixed as-of date in the system prompt, so tasks that mention "today" or "yesterday" have a deterministic answer.
+
+## Running it
+
+```bash
+npm install
+export ANTHROPIC_API_KEY=...            # never commit this
+npx tsx evals/run.ts --tasks t06,t07    # specific tasks
+npx tsx evals/run.ts --all              # all 30 tasks, once
+npx tsx evals/run.ts --hard --runs 3    # the hard tasks, 3 runs each
+```
+
+Each run writes `evals/traces/<task>__run<N>.json` (full trace) and a `.md` copy for reading. Every run starts from a fresh in-memory store seeded from `evals/fixtures/journal-seed.json`, so runs never affect each other. The cost shown is an estimate from token counts, not an invoice.
