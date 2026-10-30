@@ -1,0 +1,231 @@
+{
+  "trace_version": 1,
+  "run_id": "t12__run1",
+  "task": {
+    "id": "t12",
+    "category": "search",
+    "expected_difficulty": "easy",
+    "prompt": "Did I ever write about kayaking?",
+    "truth": {
+      "search": "kayak",
+      "dates": []
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:51:22.991Z",
+  "ended_at": "2026-10-30T21:51:28.199Z",
+  "duration_ms": 5208,
+  "num_model_calls": 3,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "I searched your journal for \"kayak\", \"kayaking\", \"paddle\", and \"canoe\". None of them matched any entries, so it looks like you've never written about kayaking.\n\nIf you'd like, I can write a new entry about it. I can also search for something related, like \"lake\", \"river\", or \"water\".",
+  "usage_total": {
+    "input_tokens": 4889,
+    "output_tokens": 347,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01987,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_01JLcbhRyJGiutptdQERmo5h",
+      "name": "search_entries",
+      "arguments": {
+        "query": "kayak"
+      },
+      "result_text": "No entries found matching \"kayak\".",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:24.228Z",
+      "duration_ms": 0
+    },
+    {
+      "turn": 2,
+      "tool_use_id": "toolu_01ShAfhdRrBsGzGisLkBDZVj",
+      "name": "search_entries",
+      "arguments": {
+        "query": "kayaking"
+      },
+      "result_text": "No entries found matching \"kayaking\".",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:26.367Z",
+      "duration_ms": 0
+    },
+    {
+      "turn": 2,
+      "tool_use_id": "toolu_01SN4MMS43zE58z2G3sFFZnx",
+      "name": "search_entries",
+      "arguments": {
+        "query": "paddle"
+      },
+      "result_text": "No entries found matching \"paddle\".",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:26.367Z",
+      "duration_ms": 0
+    },
+    {
+      "turn": 2,
+      "tool_use_id": "toolu_011ENP91xNQKL7qVoAuGkdyZ",
+      "name": "search_entries",
+      "arguments": {
+        "query": "canoe"
+      },
+      "result_text": "No entries found matching \"canoe\".",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:26.367Z",
+      "duration_ms": 1
+    }
+  ],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:51:22.991Z",
+      "response_at": "2026-10-30T21:51:24.228Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1478,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 50,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01JLcbhRyJGiutptdQERmo5h",
+          "name": "search_entries",
+          "input": {
+            "query": "kayak"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:51:24.228Z",
+      "response_at": "2026-10-30T21:51:26.367Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1544,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 205,
+        "output_tokens_details": {
+          "thinking_tokens": 59
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "I'm thinking about trying search variants, like \"kayaking\" in case it matches \"kayak\" as a substring, and maybe \"paddle\" or \"canoe\" too. Running a few of those in parallel could work.\n\n"
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01ShAfhdRrBsGzGisLkBDZVj",
+          "name": "search_entries",
+          "input": {
+            "query": "kayaking"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01SN4MMS43zE58z2G3sFFZnx",
+          "name": "search_entries",
+          "input": {
+            "query": "paddle"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_011ENP91xNQKL7qVoAuGkdyZ",
+          "name": "search_entries",
+          "input": {
+            "query": "canoe"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 3,
+      "request_at": "2026-10-30T21:51:26.368Z",
+      "response_at": "2026-10-30T21:51:28.198Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1867,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 92,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I searched your journal for \"kayak\", \"kayaking\", \"paddle\", and \"canoe\". None of them matched any entries, so it looks like you've never written about kayaking.\n\nIf you'd like, I can write a new entry about it. I can also search for something related, like \"lake\", \"river\", or \"water\"."
+        }
+      ]
+    }
+  ]
+}

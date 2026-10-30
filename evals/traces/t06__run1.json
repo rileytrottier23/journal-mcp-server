@@ -1,0 +1,138 @@
+{
+  "trace_version": 1,
+  "run_id": "t06__run1",
+  "task": {
+    "id": "t06",
+    "category": "read",
+    "expected_difficulty": "easy",
+    "prompt": "What did I write on 2026-08-14?",
+    "truth": {
+      "tool": "get_entry",
+      "date": "2026-08-14",
+      "entry": {
+        "date": "2026-08-14",
+        "content": "Finally recieved the parcel I had been waiting on for weeks. New running shoes!",
+        "happiness_score": 8
+      }
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:50:16.525Z",
+  "ended_at": "2026-10-30T21:50:19.128Z",
+  "duration_ms": 2603,
+  "num_model_calls": 2,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "On 2026-08-14 you wrote:\n\n> Finally recieved the parcel I had been waiting on for weeks. New running shoes!\n\nYou gave that day a happiness score of **8/10**.",
+  "usage_total": {
+    "input_tokens": 3062,
+    "output_tokens": 117,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01094,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_011ARtHsSNPzxF2ZyDxJtVgL",
+      "name": "get_entry",
+      "arguments": {
+        "date": "2026-08-14"
+      },
+      "result_text": "[2026-08-14] Happiness: 8/10\n\nFinally recieved the parcel I had been waiting on for weeks. New running shoes!",
+      "is_error": false,
+      "started_at": "2026-10-30T21:50:17.967Z",
+      "duration_ms": 0
+    }
+  ],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:50:16.525Z",
+      "response_at": "2026-10-30T21:50:17.967Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1479,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 53,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_011ARtHsSNPzxF2ZyDxJtVgL",
+          "name": "get_entry",
+          "input": {
+            "date": "2026-08-14"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:50:17.967Z",
+      "response_at": "2026-10-30T21:50:19.128Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1583,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 64,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "On 2026-08-14 you wrote:\n\n> Finally recieved the parcel I had been waiting on for weeks. New running shoes!\n\nYou gave that day a happiness score of **8/10**."
+        }
+      ]
+    }
+  ]
+}

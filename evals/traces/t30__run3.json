@@ -1,0 +1,87 @@
+{
+  "trace_version": 1,
+  "run_id": "t30__run3",
+  "task": {
+    "id": "t30",
+    "category": "write",
+    "expected_difficulty": "hard",
+    "prompt": "Add an entry dated 2026-02-30: tried a new bakery downtown. Score 7.",
+    "truth": {
+      "note": "February 30th is not a real date."
+    }
+  },
+  "run_index": 3,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:54:56.938Z",
+  "ended_at": "2026-10-30T21:55:00.230Z",
+  "duration_ms": 3292,
+  "num_model_calls": 1,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "2026-02-30 isn't a real date, because February 2026 ends on the 28th. I haven't saved anything yet.\n\nWhich date do you want for the entry?\n- **2026-02-28**, the last day of February\n- **2026-03-02**, if you meant February 30 to roll over\n- **Another date**, if you have a specific one in mind\n\nThe entry will say \"Tried a new bakery downtown\" and have a happiness score of 7.",
+  "usage_total": {
+    "input_tokens": 1497,
+    "output_tokens": 168,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.00701,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:54:56.938Z",
+      "response_at": "2026-10-30T21:55:00.230Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1497,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 168,
+        "output_tokens_details": {
+          "thinking_tokens": 28
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "Since February 30 isn't a real date, I shouldn't guess what they meant; I'll ask them to clarify.\n\n"
+        },
+        {
+          "type": "text",
+          "text": "2026-02-30 isn't a real date, because February 2026 ends on the 28th. I haven't saved anything yet.\n\nWhich date do you want for the entry?\n- **2026-02-28**, the last day of February\n- **2026-03-02**, if you meant February 30 to roll over\n- **Another date**, if you have a specific one in mind\n\nThe entry will say \"Tried a new bakery downtown\" and have a happiness score of 7."
+        }
+      ]
+    }
+  ]
+}

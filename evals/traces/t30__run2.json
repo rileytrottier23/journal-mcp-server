@@ -1,0 +1,87 @@
+{
+  "trace_version": 1,
+  "run_id": "t30__run2",
+  "task": {
+    "id": "t30",
+    "category": "write",
+    "expected_difficulty": "hard",
+    "prompt": "Add an entry dated 2026-02-30: tried a new bakery downtown. Score 7.",
+    "truth": {
+      "note": "February 30th is not a real date."
+    }
+  },
+  "run_index": 2,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:54:54.403Z",
+  "ended_at": "2026-10-30T21:54:56.935Z",
+  "duration_ms": 2532,
+  "num_model_calls": 1,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "2026-02-30 isn't a real date. February 2026 ends on the 28th, so I haven't created the entry.\n\nWhich date do you want for the bakery entry? Some options:\n- 2026-02-28, the last day of February\n- 2026-03-02, if you meant to roll past the end of the month\n- Another date you had in mind\n\nOnce you pick one, I'll add it with the score of 7.",
+  "usage_total": {
+    "input_tokens": 1497,
+    "output_tokens": 169,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.00703,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:54:54.403Z",
+      "response_at": "2026-10-30T21:54:56.935Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1497,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 169,
+        "output_tokens_details": {
+          "thinking_tokens": 43
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "The date 2026-02-30 doesn't exist, since February 2026 only has 28 days. I shouldn't guess what the user meant, so I'll ask them to clarify.\n\n"
+        },
+        {
+          "type": "text",
+          "text": "2026-02-30 isn't a real date. February 2026 ends on the 28th, so I haven't created the entry.\n\nWhich date do you want for the bakery entry? Some options:\n- 2026-02-28, the last day of February\n- 2026-03-02, if you meant to roll past the end of the month\n- Another date you had in mind\n\nOnce you pick one, I'll add it with the score of 7."
+        }
+      ]
+    }
+  ]
+}

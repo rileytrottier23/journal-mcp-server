@@ -1,0 +1,136 @@
+{
+  "trace_version": 1,
+  "run_id": "t14__run1",
+  "task": {
+    "id": "t14",
+    "category": "search",
+    "expected_difficulty": "medium",
+    "prompt": "Find my entries about the dentist.",
+    "truth": {
+      "search": "dentist",
+      "dates": [
+        "2026-05-12",
+        "2026-05-13"
+      ]
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:51:36.515Z",
+  "ended_at": "2026-10-30T21:51:39.591Z",
+  "duration_ms": 3076,
+  "num_model_calls": 2,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "I found 2 entries that mention the dentist:\n\n- **2026-05-12** (Happiness 5/10): You had a dentist cleaning that morning. The dentist found two small cavities, \"nothing scary.\"\n- **2026-05-13** (Happiness 5/10): You called the dentist's office to book a follow-up for the cavities.\n\nI can also search for related terms like \"cavity\" or \"teeth\" if you want to see more.",
+  "usage_total": {
+    "input_tokens": 3109,
+    "output_tokens": 188,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01215,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_01C2LCfZKcxAHc2vs4R851f3",
+      "name": "search_entries",
+      "arguments": {
+        "query": "dentist"
+      },
+      "result_text": "Found 2 entries matching \"dentist\":\n\n[2026-05-13] Happiness: 5/10\nCalled the dentist's office to book the follow-up for the cavities.\n\n---\n\n[2026-05-12] Happiness: 5/10\nDentist cleaning this morning. Two small cavities, nothing scary.",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:37.876Z",
+      "duration_ms": 0
+    }
+  ],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:51:36.515Z",
+      "response_at": "2026-10-30T21:51:37.876Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1477,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 50,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01C2LCfZKcxAHc2vs4R851f3",
+          "name": "search_entries",
+          "input": {
+            "query": "dentist"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:51:37.876Z",
+      "response_at": "2026-10-30T21:51:39.590Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1632,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 138,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I found 2 entries that mention the dentist:\n\n- **2026-05-12** (Happiness 5/10): You had a dentist cleaning that morning. The dentist found two small cavities, \"nothing scary.\"\n- **2026-05-13** (Happiness 5/10): You called the dentist's office to book a follow-up for the cavities.\n\nI can also search for related terms like \"cavity\" or \"teeth\" if you want to see more."
+        }
+      ]
+    }
+  ]
+}

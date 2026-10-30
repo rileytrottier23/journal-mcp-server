@@ -1,0 +1,147 @@
+{
+  "trace_version": 1,
+  "run_id": "t05__run1",
+  "task": {
+    "id": "t05",
+    "category": "write",
+    "expected_difficulty": "medium",
+    "prompt": "Add an entry for today: best day ever, give it an 11 out of 10.",
+    "uses_as_of": true,
+    "truth": {
+      "note": "The schema allows 1 to 10."
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:51:00.417Z",
+  "ended_at": "2026-10-30T21:51:06.397Z",
+  "duration_ms": 5980,
+  "num_model_calls": 2,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "I added today's entry (2026-09-30) with the text \"Best day ever! (11 out of 10)\".\n\nThe happiness score only goes up to 10, so I saved it as 10/10. I put the \"11 out of 10\" in the entry text so it's still there.",
+  "usage_total": {
+    "input_tokens": 3366,
+    "output_tokens": 435,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01662,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_017eTUgxfsdEVzCkSUSvz3mi",
+      "name": "create_entry",
+      "arguments": {
+        "date": "2026-09-30",
+        "content": "Best day ever! (11 out of 10)",
+        "happiness_score": 10
+      },
+      "result_text": "✓ Created journal entry for 2026-09-30 (happiness: 10/10).",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:04.607Z",
+      "duration_ms": 1
+    }
+  ],
+  "store_changes": {
+    "created_entries": [
+      {
+        "date": "2026-09-30",
+        "content": "Best day ever! (11 out of 10)",
+        "happiness_score": 10
+      }
+    ]
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:51:00.417Z",
+      "response_at": "2026-10-30T21:51:04.607Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1490,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 353,
+        "output_tokens_details": {
+          "thinking_tokens": 240
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "The happiness score tops out at 10, so the 11/10 the user wants isn't possible. I'm weighing whether to ask first or to create the entry with 10 and flag the cap, and I lean toward the second, since it's a close approximation. I'm still deciding whether to put \"11/10\" in the content next to \"best day ever.\"\n\nI'm settling on the wording for the entry: it'll say \"Best day ever!\" and I'm weighing whether to add \"(11 out of 10)\" as a small, arguably faithful touch.\n\n"
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_017eTUgxfsdEVzCkSUSvz3mi",
+          "name": "create_entry",
+          "input": {
+            "date": "2026-09-30",
+            "content": "Best day ever! (11 out of 10)",
+            "happiness_score": 10
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:51:04.608Z",
+      "response_at": "2026-10-30T21:51:06.397Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1876,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 82,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I added today's entry (2026-09-30) with the text \"Best day ever! (11 out of 10)\".\n\nThe happiness score only goes up to 10, so I saved it as 10/10. I put the \"11 out of 10\" in the entry text so it's still there."
+        }
+      ]
+    }
+  ]
+}

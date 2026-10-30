@@ -1,0 +1,158 @@
+{
+  "trace_version": 1,
+  "run_id": "t10__run1",
+  "task": {
+    "id": "t10",
+    "category": "search",
+    "expected_difficulty": "easy",
+    "prompt": "Find the entry where I signed up for a marathon.",
+    "truth": {
+      "search": "marathon",
+      "dates": [
+        "2026-06-14"
+      ]
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:51:20.873Z",
+  "ended_at": "2026-10-30T21:51:22.986Z",
+  "duration_ms": 2113,
+  "num_model_calls": 2,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "I found it. The entry is from **June 14, 2026**, and you rated your happiness 8/10:\n\n> Signed up for the autumn marathon today. Eighteen weeks of training starts Monday.",
+  "usage_total": {
+    "input_tokens": 3245,
+    "output_tokens": 163,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01218,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_01LmqHPoZtXWpNCTNDs5u1kA",
+      "name": "search_entries",
+      "arguments": {
+        "query": "marathon"
+      },
+      "result_text": "Found 1 entry matching \"marathon\":\n\n[2026-06-14] Happiness: 8/10\nSigned up for the autumn marathon today. Eighteen weeks of training starts Monday.",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:22.027Z",
+      "duration_ms": 0
+    },
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_01Sar22VtbKjdsAGwGK2ZHzH",
+      "name": "search_entries",
+      "arguments": {
+        "query": "signed up"
+      },
+      "result_text": "Found 1 entry matching \"signed up\":\n\n[2026-06-14] Happiness: 8/10\nSigned up for the autumn marathon today. Eighteen weeks of training starts Monday.",
+      "is_error": false,
+      "started_at": "2026-10-30T21:51:22.027Z",
+      "duration_ms": 1
+    }
+  ],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:51:20.873Z",
+      "response_at": "2026-10-30T21:51:22.027Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1482,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 97,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01LmqHPoZtXWpNCTNDs5u1kA",
+          "name": "search_entries",
+          "input": {
+            "query": "marathon"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01Sar22VtbKjdsAGwGK2ZHzH",
+          "name": "search_entries",
+          "input": {
+            "query": "signed up"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:51:22.028Z",
+      "response_at": "2026-10-30T21:51:22.986Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1763,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 66,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I found it. The entry is from **June 14, 2026**, and you rated your happiness 8/10:\n\n> Signed up for the autumn marathon today. Eighteen weeks of training starts Monday."
+        }
+      ]
+    }
+  ]
+}

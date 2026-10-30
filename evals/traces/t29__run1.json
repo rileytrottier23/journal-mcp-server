@@ -1,0 +1,139 @@
+{
+  "trace_version": 1,
+  "run_id": "t29__run1",
+  "task": {
+    "id": "t29",
+    "category": "read",
+    "expected_difficulty": "medium",
+    "prompt": "What did I do for my birthday?",
+    "truth": {
+      "search": "birthday",
+      "dates": [
+        "2026-06-21"
+      ]
+    }
+  },
+  "run_index": 1,
+  "config": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 8000,
+    "thinking": {
+      "type": "adaptive",
+      "display": "summarized"
+    },
+    "temperature": "unset (default)",
+    "system": "You are a journaling assistant. You help the user read and write their private journal using the tools provided. Today is Wednesday, 2026-09-30.",
+    "as_of": "2026-09-30",
+    "tools": [
+      "create_entry",
+      "list_recent_entries",
+      "get_entry",
+      "search_entries",
+      "get_mood_summary"
+    ],
+    "max_turns": 15
+  },
+  "started_at": "2026-10-30T21:52:44.485Z",
+  "ended_at": "2026-10-30T21:52:48.628Z",
+  "duration_ms": 4143,
+  "num_model_calls": 2,
+  "stop_reason": "end_turn",
+  "error": null,
+  "final_text": "Your journal has one entry about your birthday, dated June 21, 2026. You wrote:\n\n> \"Birthday dinner at the little Italian place. Everyone showed up, and Dana's cake was ridiculous.\"\n\nYou rated that day 9/10. You went out for dinner at an Italian restaurant, everyone came, and Dana's cake was a highlight.\n\nI can look at the entries around that date if you want more detail.",
+  "usage_total": {
+    "input_tokens": 3100,
+    "output_tokens": 208,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+  },
+  "estimated_cost_usd": 0.01242,
+  "cost_note": "Estimate at $3/$15 per million input/output tokens. Not an invoice figure.",
+  "tool_calls": [
+    {
+      "turn": 1,
+      "tool_use_id": "toolu_01QqphxBPPKrWfYBWPuc286s",
+      "name": "search_entries",
+      "arguments": {
+        "query": "birthday"
+      },
+      "result_text": "Found 1 entry matching \"birthday\":\n\n[2026-06-21] Happiness: 9/10\nBirthday dinner at the little Italian place. Everyone showed up, and Dana's cake was ridiculous.",
+      "is_error": false,
+      "started_at": "2026-10-30T21:52:46.920Z",
+      "duration_ms": 0
+    }
+  ],
+  "store_changes": {
+    "created_entries": []
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "request_at": "2026-10-30T21:52:44.485Z",
+      "response_at": "2026-10-30T21:52:46.920Z",
+      "stop_reason": "tool_use",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1476,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 73,
+        "output_tokens_details": {
+          "thinking_tokens": 22
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "thinking",
+          "thinking": "I'm missing the birthday date, so I'll search my entries for \"birthday\" to find it.\n\n"
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu_01QqphxBPPKrWfYBWPuc286s",
+          "name": "search_entries",
+          "input": {
+            "query": "birthday"
+          },
+          "caller": {
+            "type": "direct"
+          }
+        }
+      ]
+    },
+    {
+      "turn": 2,
+      "request_at": "2026-10-30T21:52:46.920Z",
+      "response_at": "2026-10-30T21:52:48.628Z",
+      "stop_reason": "end_turn",
+      "stop_details": null,
+      "usage": {
+        "input_tokens": 1624,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 135,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Your journal has one entry about your birthday, dated June 21, 2026. You wrote:\n\n> \"Birthday dinner at the little Italian place. Everyone showed up, and Dana's cake was ridiculous.\"\n\nYou rated that day 9/10. You went out for dinner at an Italian restaurant, everyone came, and Dana's cake was a highlight.\n\nI can look at the entries around that date if you want more detail."
+        }
+      ]
+    }
+  ]
+}
