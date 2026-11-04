@@ -39,3 +39,13 @@ npx tsx evals/run.ts --hard --runs 3    # the hard tasks, 3 runs each
 ```
 
 Each run writes `evals/traces/<task>__run<N>.json` (full trace) and a `.md` copy for reading. Every run starts from a fresh in-memory store seeded from `evals/fixtures/journal-seed.json`, so runs never affect each other. The cost shown is an estimate from token counts, not an invoice.
+
+### Message threads (optional)
+
+`--threads` turns on the message threads beta (`message-threads-2026-08-12`). The first model call creates a thread with the full prompt, system and tools. Each later call sends only the new tool results. Token cost should be the same; the point is lower latency on long runs. It is off by default so the baseline traces stay comparable.
+
+```bash
+npx tsx evals/run.ts --hard --runs 3 --threads --out evals/traces-threads
+```
+
+Each trace records `latency_ms` per model call, `model_latency_ms_total`, and `thread_replays`. Threads expire 5 minutes after last use. If one is gone (404 `thread_not_found`), the runner replays the full conversation in a new thread and counts it. Compare `model_latency_ms_total` against the baseline traces and log the result in the build log.

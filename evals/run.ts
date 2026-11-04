@@ -14,6 +14,9 @@
  *   --out DIR       trace directory (default evals/traces)
  *   --force         overwrite traces that already exist
  *   --max-turns N   model calls per run before giving up (default 15)
+ *   --threads       use message threads (beta): the server keeps the conversation and each
+ *                   follow-up call sends only the new tool results. Off by default so results
+ *                   stay comparable with the baseline traces. Use with --out to keep them apart.
  *
  * Output per run: <task>__run<N>.json (full trace) and <task>__run<N>.md (readable copy).
  */
@@ -34,6 +37,7 @@ const USER_ID = "eval-user";
 // Cost is an estimate. Override with PRICE_IN_PER_MTOK / PRICE_OUT_PER_MTOK if the rates differ.
 const PRICE_IN = Number(process.env.PRICE_IN_PER_MTOK ?? 3);
 const PRICE_OUT = Number(process.env.PRICE_OUT_PER_MTOK ?? 15);
+const THREADS_BETA = "message-threads-2026-08-12";
 
 const here = dirname(fileURLToPath(import.meta.url));
 
@@ -62,7 +66,7 @@ function systemPrompt(asOf: string): string {
 }
 
 function parseArgs(argv: string[]) {
-  const args = { tasks: [] as string[], all: false, hard: false, runs: 1, out: join(here, "traces"), force: false, maxTurns: 15 };
+  const args = { tasks: [] as string[], all: false, hard: false, runs: 1, out: join(here, "traces"), force: false, maxTurns: 15, threads: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--tasks") args.tasks = argv[++i].split(",").map((s) => s.trim()).filter(Boolean);
@@ -72,6 +76,7 @@ function parseArgs(argv: string[]) {
     else if (a === "--out") args.out = argv[++i];
     else if (a === "--force") args.force = true;
     else if (a === "--max-turns") args.maxTurns = Number(argv[++i]);
+    else if (a === "--threads") args.threads = true;
     else throw new Error(`Unknown argument: ${a}`);
   }
   if (!args.all && !args.hard && args.tasks.length === 0) throw new Error("Pass --tasks t01,t02, --hard, or --all");
@@ -80,7 +85,7 @@ function parseArgs(argv: string[]) {
 
 type Block = Record<string, any>;
 
-async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: number, anthropic: Anthropic) {
+async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: number, anthropic: Anthropic, useThreads: boolean) {
   // Fresh store + server per run, so runs never see each other's writes.
   const store = new InMemoryJournalStore();
   for (const e of seed.entries) {
@@ -110,18 +115,47 @@ async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: numbe
   let finalText = "";
   let error: string | null = null;
 
+  // Message threads: the first call creates the thread with the full conversation, system and
+  // tools; later calls send only what is new since the last response. `messages` stays the full
+  // local copy, so a lost thread (404 thread_not_found) is recovered by replaying it in a create.
+  let previousId: string | null = null;
+  let sentUpTo = 0;
+  let threadReplays = 0;
+
+  async function callModel(): Promise<Anthropic.Message> {
+    if (!useThreads) {
+      return anthropic.messages.create({ model: MODEL, max_tokens: MAX_TOKENS, system, tools, thinking: thinking as any, messages });
+    }
+    const createBody = { model: MODEL, max_tokens: MAX_TOKENS, system, tools, thinking: thinking as any, betas: [THREADS_BETA] };
+    if (previousId) {
+      try {
+        return (await anthropic.beta.messages.create({
+          ...createBody,
+          system: undefined,
+          tools: undefined,
+          messages: messages.slice(sentUpTo) as any,
+          thread: { type: "continue", previous_message_id: previousId },
+        } as any)) as unknown as Anthropic.Message;
+      } catch (e) {
+        if (!(e instanceof Anthropic.NotFoundError)) throw e;
+        threadReplays++;
+      }
+    }
+    return (await anthropic.beta.messages.create({
+      ...createBody,
+      messages: messages as any,
+      thread: { type: "create" },
+    } as any)) as unknown as Anthropic.Message;
+  }
+
   try {
     for (let turn = 1; turn <= maxTurns; turn++) {
       const requestAt = new Date().toISOString();
-      const response = await anthropic.messages.create({
-        model: MODEL,
-        max_tokens: MAX_TOKENS,
-        system,
-        tools,
-        thinking: thinking as any,
-        messages,
-      });
+      const t0 = Date.now();
+      const response = await callModel();
+      const latencyMs = Date.now() - t0;
       const responseAt = new Date().toISOString();
+      if (useThreads) previousId = response.id;
       const u = response.usage as unknown as Record<string, number | null>;
       for (const k of Object.keys(usage) as Array<keyof typeof usage>) usage[k] += u[k] ?? 0;
       stopReason = response.stop_reason;
@@ -135,6 +169,7 @@ async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: numbe
         turn,
         request_at: requestAt,
         response_at: responseAt,
+        latency_ms: latencyMs,
         stop_reason: response.stop_reason,
         stop_details: (response as any).stop_details ?? null,
         usage: response.usage,
@@ -142,6 +177,7 @@ async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: numbe
       });
 
       messages.push({ role: "assistant", content: response.content });
+      sentUpTo = messages.length; // the thread already holds everything up to and including this reply
 
       const toolUses = response.content.filter((b) => b.type === "tool_use") as Anthropic.ToolUseBlock[];
       if (response.stop_reason !== "tool_use" || toolUses.length === 0) {
@@ -214,11 +250,14 @@ async function runOnce(task: Task, seed: Seed, runIndex: number, maxTurns: numbe
       as_of: seed.as_of,
       tools: tools.map((t) => t.name),
       max_turns: maxTurns,
+      message_threads: useThreads ? THREADS_BETA : false,
     },
     started_at: startedAt.toISOString(),
     ended_at: endedAt.toISOString(),
     duration_ms: endedAt.getTime() - startedAt.getTime(),
     num_model_calls: steps.length,
+    model_latency_ms_total: steps.reduce((n, s) => n + (s.latency_ms as number), 0),
+    thread_replays: threadReplays,
     stop_reason: stopReason,
     error,
     final_text: finalText,
@@ -254,7 +293,8 @@ function toMarkdown(t: Trace): string {
   }
   L.push("## Final reply", "", t.final_text || "_(none)_", "");
   L.push("## Run info", "");
-  L.push(`- Model calls: ${t.num_model_calls}, tool calls: ${t.tool_calls.length}, duration: ${(t.duration_ms / 1000).toFixed(1)}s`);
+  L.push(`- Model calls: ${t.num_model_calls}, tool calls: ${t.tool_calls.length}, duration: ${(t.duration_ms / 1000).toFixed(1)}s (model time ${(t.model_latency_ms_total / 1000).toFixed(1)}s)`);
+  if (t.config.message_threads) L.push(`- Message threads: on${t.thread_replays ? ` (thread lost and replayed ${t.thread_replays}x)` : ""}`);
   L.push(`- Tokens: ${t.usage_total.input_tokens} in, ${t.usage_total.output_tokens} out. Estimated cost: $${t.estimated_cost_usd}`);
   L.push(`- Entries created in the store: ${t.store_changes.created_entries.length}`);
   if (t.error) L.push(`- **Error:** ${t.error}`);
@@ -295,7 +335,7 @@ async function main() {
         console.log(`skip ${task.id} run ${r} (trace exists, use --force to overwrite)`);
         continue;
       }
-      const trace = await runOnce(task, seed, r, args.maxTurns, anthropic);
+      const trace = await runOnce(task, seed, r, args.maxTurns, anthropic, args.threads);
       writeFileSync(`${base}.json`, JSON.stringify(trace, null, 2) + "\n");
       writeFileSync(`${base}.md`, toMarkdown(trace));
       totalCost += trace.estimated_cost_usd;
@@ -304,7 +344,7 @@ async function main() {
       console.log(
         `${trace.run_id}  calls=${trace.num_model_calls} tools=${trace.tool_calls.length} ` +
           `tokens=${trace.usage_total.input_tokens}/${trace.usage_total.output_tokens} ` +
-          `~$${trace.estimated_cost_usd}${flag}`,
+          `model_ms=${trace.model_latency_ms_total} ~$${trace.estimated_cost_usd}${flag}`,
       );
     }
   }
