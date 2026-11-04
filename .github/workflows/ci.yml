@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+
+      # No lockfile in this repo, so install from package.json.
+      - run: npm install --no-fund
+
+      # Fails the build on any critical vulnerability in a production
+      # dependency. High and lower are listed in the log without failing.
+      - name: Dependency audit
+        run: |
+          npm audit --omit=dev || true
+          npm audit --omit=dev --audit-level=critical
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
