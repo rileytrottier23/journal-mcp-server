@@ -13,7 +13,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '22'
 
       # No lockfile in this repo, so install from package.json.
       - run: npm install --no-fund
