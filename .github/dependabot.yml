@@ -6,6 +6,10 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    ignore:
+      # Node 22 types match the Node version CI and the host run (#11).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       # Security fixes arrive as one grouped PR instead of many.
       security-updates:
